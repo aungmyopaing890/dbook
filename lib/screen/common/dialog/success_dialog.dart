@@ -97,6 +97,7 @@ class _NewDialog extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 40,
                   titleText: 'Ok',
+                  titleTextColor: MasterColors.white,
                   onPressed: () {
                     Navigator.of(context).pop();
                     widget.onPressed!();

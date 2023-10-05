@@ -1,5 +1,6 @@
 import 'package:dbook/core/db/database_helper.dart';
 import 'package:dbook/core/db/master_shared_preferences.dart';
+import 'package:dbook/core/viewobject/change_password.dart';
 import 'package:dbook/core/viewobject/user.dart';
 
 class AuthRepository {
@@ -25,6 +26,15 @@ class AuthRepository {
       setLoginUserData(resource.user!);
     }
     return resource;
+  }
+
+  Future<ChangePasswordReturn> changeUserPassword({
+    required String id,
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    return await _databaseHelper!.changeUserPassword(
+        id: id, oldPassword: oldPassword, newPassword: newPassword);
   }
 
   Future<int> deleteUser() async {

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dbook/core/viewobject/change_password.dart';
 import 'package:dbook/core/viewobject/user.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -74,21 +75,30 @@ class DatabaseHelper {
     return List<User>.from(itemMapList.map((x) => User().fromMap(x)));
   }
 
-  Future<int> updateUser(
-    User user,
-  ) async {
+  Future<ChangePasswordReturn> changeUserPassword({
+    required String id,
+    required String oldPassword,
+    required String newPassword,
+  }) async {
     var db = await database;
-    var result = await db.update(
-        tableUser,
-        {
-          MovieFields.id: user.id,
-          MovieFields.name: user.name,
-          MovieFields.email: user.email,
-          MovieFields.password: user.password,
-        },
-        where: 'id = ?',
-        whereArgs: [int.parse(user.id.toString())]);
-    return result;
+    var itemMapList = await db.query(tableUser,
+        columns: MovieFields.values,
+        where: '${MovieFields.id} = ? AND ${MovieFields.password} = ?',
+        whereArgs: [id, oldPassword]);
+    if (itemMapList.isEmpty) {
+      return ChangePasswordReturn(
+          success: false, message: "Old Password Wrong!");
+    } else {
+      await db.update(
+          tableUser,
+          {
+            MovieFields.password: newPassword,
+          },
+          where: 'id = ?',
+          whereArgs: [int.parse(id.toString())]);
+      return ChangePasswordReturn(
+          data: "Success", success: true, message: "Password Changed!");
+    }
   }
 
   Future<int> deleteUser(String id) async {
@@ -124,8 +134,6 @@ class DatabaseHelper {
 
   Future<UserData> checkUser(String userName, String password) async {
     final db = await database;
-    // final id = await db.query(tableUser,
-    //     columns: MovieFields.values, where: "${MovieFields.name} =$userName");
     var itemMapList = await db.query(tableUser,
         columns: MovieFields.values,
         where: '${MovieFields.name} = ? AND ${MovieFields.password} = ?',

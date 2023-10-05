@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:dbook/core/repository/auth_repositroy.dart';
+import 'package:dbook/core/viewobject/change_password.dart';
 import 'package:dbook/screen/common/dialog/error_dialog.dart';
 import 'package:dbook/screen/common/dialog/success_dialog.dart';
 import 'package:dbook/screen/common/progress_dialog.dart';
@@ -53,6 +54,42 @@ class AuthProvider extends ChangeNotifier {
       /// Success
       ///
       callBackAfterLoginSuccess();
+    } else {
+      showDialog<dynamic>(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorDialog(
+              message: resource.message,
+            );
+          });
+    }
+    notifyListeners();
+  }
+
+  Future<void> changeUserPassword(
+    BuildContext context, {
+    required String id,
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    await MasterProgressDialog.showDialog(context);
+    ChangePasswordReturn resource = await _authRepository!.changeUserPassword(
+        id: id, oldPassword: oldPassword, newPassword: newPassword);
+    MasterProgressDialog.dismissDialog();
+    if (resource.success ?? false) {
+      ///
+      /// Success
+      ///
+      showDialog<dynamic>(
+          context: context,
+          builder: (BuildContext context) {
+            return SuccessDialog(
+              message: resource.message,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          });
     } else {
       showDialog<dynamic>(
           context: context,

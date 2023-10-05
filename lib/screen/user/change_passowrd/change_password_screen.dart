@@ -1,3 +1,4 @@
+import 'package:dbook/core/viewobject/common/master_value_holder.dart';
 import 'package:dbook/screen/common/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:dbook/core/repository/auth_repositroy.dart';
@@ -18,15 +19,6 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  // bool _passwordVisible = false;
-  bool isChecked = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // _passwordVisible = false;
-  }
-
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -34,6 +26,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   late AuthProvider authProvider;
   @override
   Widget build(BuildContext context) {
+    final MasterValueHolder valueHolder =
+        Provider.of<MasterValueHolder>(context);
+
     final AuthRepository authRepository = Provider.of<AuthRepository>(context);
     return Scaffold(
       body: MultiProvider(
@@ -59,55 +54,57 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             appBarTitle: "Change Password",
           ),
           body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: Dimesion.height20,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
-                  child: MasterPasswordTextFieldWidget(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: Dimesion.height20,
+                  ),
+                  MasterPasswordTextFieldWidget(
                       hintText: "Old Password",
                       textEditingController: oldPasswordController),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
-                  child: MasterPasswordTextFieldWidget(
+                  MasterPasswordTextFieldWidget(
                       hintText: "Fill New Password",
                       textEditingController: passwordController),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
-                  child: MasterPasswordTextFieldWidget(
+                  MasterPasswordTextFieldWidget(
                       hintText: "Confirm Password",
                       textEditingController: confirmPasswordController),
-                ),
-                SizedBox(
-                  height: Dimesion.height10,
-                ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () async {
-                      if (passwordController.text == '') {
-                        callWarningDialog(context, 'Please Fill Password');
-                      } else if (confirmPasswordController.text == '') {
-                        callWarningDialog(
-                            context, 'Please Fill Confirm Password');
-                      } else if (oldPasswordController.text == '') {
-                        callWarningDialog(context, 'Please Fill Old Password');
-                      } else {}
-                    },
-                    child: BigButton(
-                      text: "Change Password",
-                      buttonColor: MasterColors.mainColor,
+                  SizedBox(
+                    height: Dimesion.height10,
+                  ),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () async {
+                        if (passwordController.text == '') {
+                          callWarningDialog(context, 'Please Fill Password');
+                        } else if (confirmPasswordController.text == '') {
+                          callWarningDialog(
+                              context, 'Please Fill Confirm Password');
+                        } else if (oldPasswordController.text == '') {
+                          callWarningDialog(
+                              context, 'Please Fill Old Password');
+                        } else {
+                          await authProvider.changeUserPassword(
+                            context,
+                            id: valueHolder.loginUserId,
+                            oldPassword: oldPasswordController.text,
+                            newPassword: passwordController.text,
+                          );
+                        }
+                      },
+                      child: BigButton(
+                        text: "Change Password",
+                        buttonColor: MasterColors.mainColor,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: Dimesion.height5,
-                ),
-              ],
+                  SizedBox(
+                    height: Dimesion.height5,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
