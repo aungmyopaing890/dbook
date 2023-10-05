@@ -67,11 +67,21 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
-                                .titleLarge!
-                                .copyWith(
-                                    color: MasterColors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                .titleMedium!
+                                .copyWith(fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: Dimesion.height10),
+                          alignment: Alignment.center,
+                          child: Text(
+                            valueHolder?.loginUserEmail ?? '',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(),
                           ),
                         ),
                         Container(
