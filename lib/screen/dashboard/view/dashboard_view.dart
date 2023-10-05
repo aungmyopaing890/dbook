@@ -42,10 +42,31 @@ class _HomeViewState extends State<DashboardView>
 
       setState(() {
         appBarTitleName = title!;
+        // appBarTitle = title;
         _currentIndex = index;
       });
     });
   }
+
+  void updateSelectedIndexAndAppBarTitle(String? title, int? index) {
+    setState(() {
+      appBarTitleName = title!;
+      _currentIndex = index;
+    });
+  }
+
+  @override
+  void initState() {
+    animationController = AnimationController(
+        duration: MasterConfig.animation_duration, vsync: this);
+
+    animationControllerForFab = AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this, value: 1);
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  // final _drawerController = ZoomDrawerController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +90,12 @@ class _HomeViewState extends State<DashboardView>
       });
     }
 
+    Future<void> updateSelectedIndex(int index) async {
+      setState(() {
+        _currentIndex = index;
+      });
+    }
+
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
@@ -78,6 +105,9 @@ class _HomeViewState extends State<DashboardView>
         ),
         body: DashboardBodyWidget(
           currentIndex: _currentIndex!,
+          updateSelectedIndex: updateSelectedIndex,
+          updateSelectedIndexAndAppBarTitle: updateSelectedIndexAndAppBarTitle,
+          updateSelectedIndexWithAnimation: updateSelectedIndexWithAnimation,
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -86,12 +116,14 @@ class _HomeViewState extends State<DashboardView>
           showUnselectedLabels: true,
           showSelectedLabels: true,
           unselectedItemColor: MasterColors.grey,
-          selectedItemColor: MasterColors.mainColor,
-          selectedLabelStyle: const TextStyle(
+          selectedItemColor: MasterColors.black,
+          selectedLabelStyle: TextStyle(
               fontFamily: MasterConfig.default_font_family,
+              color: MasterColors.black,
               fontWeight: FontWeight.w400),
-          unselectedLabelStyle: const TextStyle(
+          unselectedLabelStyle: TextStyle(
               fontFamily: MasterConfig.default_font_family,
+              color: MasterColors.grey,
               fontWeight: FontWeight.w400),
           onTap: (int index) {
             final dynamic returnValue =
@@ -102,7 +134,7 @@ class _HomeViewState extends State<DashboardView>
             BottomNavigationBarItem(
               activeIcon: SvgPicture.asset(
                 "assets/images/icons/home.svg",
-                color: MasterColors.mainColor,
+                color: MasterColors.black,
               ),
               icon: SvgPicture.asset("assets/images/icons/home.svg"),
               label: 'Home',
@@ -110,7 +142,7 @@ class _HomeViewState extends State<DashboardView>
             BottomNavigationBarItem(
               activeIcon: SvgPicture.asset(
                 "assets/images/icons/account.svg",
-                color: MasterColors.mainColor,
+                color: MasterColors.black,
               ),
               icon: SvgPicture.asset("assets/images/icons/account.svg"),
               label: 'Account',

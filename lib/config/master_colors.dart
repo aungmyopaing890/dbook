@@ -42,7 +42,7 @@ class MasterColors {
   static Color mainColor = const Color(0xFFDEA34B);
 
   //Back ground Color
-  static Color appBackgorundColor = white;
+  static Color appBackgorundColor = const Color(0xFFF4F4F4);
   static Color appBarBackgorundColor = mainColor;
 
   ///
@@ -63,7 +63,7 @@ class MasterColors {
   ///
   static Color white = Colors.white;
   static Color black = Colors.black;
-  static Color grey = const Color(0xFFF4F4F4);
+  static Color grey = Colors.black38;
   static Color transparent = Colors.transparent;
   static Color shadow = const Color(0xFF2598D7);
   static Color red = Colors.red;

@@ -33,7 +33,7 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
             }),
       ],
       child: Scaffold(
-        backgroundColor: MasterColors.grey,
+        backgroundColor: MasterColors.appBackgorundColor,
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimesion.width10),
           child: RefreshIndicator(

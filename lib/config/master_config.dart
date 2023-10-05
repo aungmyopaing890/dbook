@@ -30,7 +30,7 @@ class MasterConfig {
   ///
   /// Animation Duration
   ///
-  // static const Duration animation_duration = Duration(milliseconds: 500);
+  static const Duration animation_duration = Duration(milliseconds: 500);
 
   static const String default_font_family = 'Kanit';
 }
