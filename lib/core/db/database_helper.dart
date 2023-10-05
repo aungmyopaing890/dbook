@@ -122,6 +122,24 @@ class DatabaseHelper {
     }
   }
 
+  Future<UserData> checkUser(String userName, String password) async {
+    final db = await database;
+    // final id = await db.query(tableUser,
+    //     columns: MovieFields.values, where: "${MovieFields.name} =$userName");
+    var itemMapList = await db.query(tableUser,
+        columns: MovieFields.values,
+        where: '${MovieFields.name} = ? AND ${MovieFields.password} = ?',
+        whereArgs: [userName, password]);
+    if (itemMapList.isEmpty) {
+      return UserData(success: false, message: "UserName or Password Wrong!");
+    } else {
+      return UserData(
+          user: User().fromMap(itemMapList[0]),
+          success: true,
+          message: "Login Success!");
+    }
+  }
+
 /////////////////////////////////////// End User //////////////////////////////////////
   ///
 

@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:dbook/core/repository/auth_repositroy.dart';
 import 'package:dbook/screen/common/dialog/error_dialog.dart';
+import 'package:dbook/screen/common/dialog/success_dialog.dart';
 import 'package:dbook/screen/common/progress_dialog.dart';
 import 'package:dbook/core/viewobject/user.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +37,47 @@ class AuthProvider extends ChangeNotifier {
             );
           });
     }
+    notifyListeners();
+  }
+
+  Future<void> login(BuildContext context,
+      {required String username,
+      required String password,
+      required Function callBackAfterLoginSuccess}) async {
+    await MasterProgressDialog.showDialog(context);
+    UserData resource = await _authRepository!
+        .loginUser(username: username, password: password);
+    MasterProgressDialog.dismissDialog();
+    if (resource.success ?? false) {
+      ///
+      /// Success
+      ///
+      callBackAfterLoginSuccess();
+    } else {
+      showDialog<dynamic>(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorDialog(
+              message: resource.message,
+            );
+          });
+    }
+    notifyListeners();
+  }
+
+  Future<void> logoutUser(BuildContext context,
+      {required Function logout}) async {
+    logout();
+    await MasterProgressDialog.showDialog(context);
+    await _authRepository!.logoutUser();
+    MasterProgressDialog.dismissDialog();
+    showDialog<dynamic>(
+        context: context,
+        builder: (BuildContext context) {
+          return const SuccessDialog(
+            message: "Successfully Logout!",
+          );
+        });
     notifyListeners();
   }
 }

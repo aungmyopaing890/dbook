@@ -24,17 +24,16 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // emailController.text = "aung@gmail.com";
-    // passwordController.text = "password";
+    usernameController.text = "aung11";
+    passwordController.text = "password1";
   }
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late AuthProvider authProvider;
   @override
   Widget build(BuildContext context) {
     final AuthRepository authRepository = Provider.of<AuthRepository>(context);
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
@@ -81,8 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       horizontal: Dimesion.width20,
                       vertical: Dimesion.height10),
                   child: MasterTextFieldWidget(
-                      hintText: "Phone",
-                      textEditingController: emailController)),
+                      hintText: "UserName",
+                      textEditingController: usernameController)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
                 child: MasterPasswordTextFieldWidget(
@@ -139,11 +138,21 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: GestureDetector(
                   onTap: () async {
-                    if (emailController.text == '') {
-                      callWarningDialog(context, 'Please Fill Email!');
+                    if (usernameController.text == '') {
+                      callWarningDialog(context, 'Please Fill UserName!');
                     } else if (passwordController.text == '') {
-                      callWarningDialog(context, 'Please Fil Password');
-                    } else {}
+                      callWarningDialog(context, 'Please Fil Password!');
+                    } else {
+                      authProvider.login(context,
+                          username: usernameController.text,
+                          password: passwordController.text,
+                          callBackAfterLoginSuccess: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          "/",
+                        );
+                      });
+                    }
                   },
                   child: BigButton(
                     buttonColor: MasterColors.mainColor,

@@ -76,7 +76,6 @@ class MovieFields {
     id,
     name,
     email,
-    password,
   ];
 
   static const String id = 'id';

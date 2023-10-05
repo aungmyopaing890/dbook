@@ -226,6 +226,13 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                                             rightButtonText: 'Ok',
                                             onAgreeTap: () async {
                                               Navigator.pop(context);
+                                              authProvider.logoutUser(context,
+                                                  logout: () {
+                                                Navigator.pushReplacementNamed(
+                                                  context,
+                                                  "/",
+                                                );
+                                              });
                                             });
                                       });
                                 },
