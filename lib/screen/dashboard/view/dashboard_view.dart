@@ -102,6 +102,7 @@ class _HomeViewState extends State<DashboardView>
         key: scaffoldKey,
         appBar: AppbarWidget(
           appBarTitle: appBarTitleName,
+          autoLeading: false,
         ),
         body: DashboardBodyWidget(
           currentIndex: _currentIndex!,

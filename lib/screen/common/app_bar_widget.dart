@@ -8,6 +8,7 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppbarWidget(
       {super.key,
       this.useSliver = false,
+      this.autoLeading = true,
       this.appBarTitle,
       this.actionWidgets,
       this.leading});
@@ -15,6 +16,7 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String? appBarTitle;
   final List<Widget>? actionWidgets;
   final Widget? leading;
+  final bool autoLeading;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +25,14 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
           child: _AppbarWidget(
         appBarTitle: appBarTitle,
         actionWidgets: actionWidgets,
+        autoLeading: autoLeading,
         leading: leading,
       ));
     } else {
       return _AppbarWidget(
         appBarTitle: appBarTitle,
         actionWidgets: actionWidgets,
+        autoLeading: autoLeading,
         leading: leading,
       );
     }
@@ -39,10 +43,15 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _AppbarWidget extends StatelessWidget {
-  const _AppbarWidget({this.appBarTitle, this.actionWidgets, this.leading});
+  const _AppbarWidget(
+      {required this.autoLeading,
+      this.appBarTitle,
+      this.actionWidgets,
+      this.leading});
   final String? appBarTitle;
   final List<Widget>? actionWidgets;
   final Widget? leading;
+  final bool autoLeading;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +59,7 @@ class _AppbarWidget extends StatelessWidget {
       return AppBar(
         titleSpacing: 0,
         leading: leading,
+        automaticallyImplyLeading: autoLeading,
         backgroundColor: MasterColors.appBackgorundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
@@ -71,6 +81,7 @@ class _AppbarWidget extends StatelessWidget {
           statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
         ),
         iconTheme: Theme.of(context).iconTheme,
+        automaticallyImplyLeading: autoLeading,
         backgroundColor: MasterColors.appBackgorundColor,
         centerTitle: false,
         title: Text(appBarTitle ?? '',
