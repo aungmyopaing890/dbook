@@ -66,13 +66,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           title: Text(
             'Sign Up',
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.bold, color: MasterColors.textColor3),
+                fontWeight: FontWeight.bold, color: MasterColors.textColor1),
           ),
           elevation: 0,
           iconTheme: IconThemeData(color: MasterColors.textColor2),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
-            statusBarBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.light,
             statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
           ),
         ),

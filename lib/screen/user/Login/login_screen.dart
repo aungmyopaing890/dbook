@@ -58,11 +58,11 @@ class _LoginScreenState extends State<LoginScreen> {
           title: Text(
             'Login',
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.bold, color: MasterColors.textColor3),
+                fontWeight: FontWeight.bold, color: MasterColors.textColor1),
           ),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
-            statusBarBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.light,
             statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
           ),
         ),
