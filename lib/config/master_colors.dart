@@ -25,10 +25,10 @@ class MasterColors {
   ///
   /// text Color
   ///
-  static Color? textColor1 = secondary900;
-  static Color? textColor2 = mainColor;
-  static Color? textColor3 = secondary50;
-  static Color? appBarTitleColor = black;
+  static Color textColor1 = secondary900;
+  static Color textColor2 = mainColor;
+  static Color textColor3 = secondary50;
+  static Color appBarTitleColor = black;
 
   ///
   /// Button Color

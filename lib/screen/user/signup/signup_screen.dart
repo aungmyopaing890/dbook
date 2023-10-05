@@ -24,7 +24,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  // TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confrimPasswordController = TextEditingController();
   late AuthProvider authProvider;
@@ -77,118 +76,110 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(top: Dimesion.height10),
                   height: MediaQuery.of(context).size.height * 0.3,
-                  child: Image.asset(
-                    "assets/images/logo.png",
-                  )),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.asset('assets/images/logo.png'),
+                  ),
+                ),
+                Text(
                   'Sign Up',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: MasterColors.textColor1),
                 ),
-              ),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
-                  child: MasterTextFieldWidget(
-                      hintText: "Name", textEditingController: nameController)),
-              SizedBox(
-                height: Dimesion.height10,
-              ),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
-                  child: MasterTextFieldWidget(
-                      hintText: "Email",
-                      textEditingController: emailController)),
-              SizedBox(
-                height: Dimesion.height10,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
-                child: MasterPasswordTextFieldWidget(
+                MasterTextFieldWidget(
+                    hintText: "User Name",
+                    textEditingController: nameController),
+                SizedBox(
+                  height: Dimesion.height10,
+                ),
+                MasterTextFieldWidget(
+                    hintText: "Email", textEditingController: emailController),
+                SizedBox(
+                  height: Dimesion.height10,
+                ),
+                MasterPasswordTextFieldWidget(
                     hintText: "Password",
                     textEditingController: passwordController),
-              ),
-              SizedBox(
-                height: Dimesion.height10,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimesion.width20),
-                child: MasterPasswordTextFieldWidget(
+                SizedBox(
+                  height: Dimesion.height10,
+                ),
+                MasterPasswordTextFieldWidget(
                     hintText: "Confirm Password",
                     textEditingController: confrimPasswordController),
-              ),
-              SizedBox(
-                height: Dimesion.height10,
-              ),
-              Center(
-                child: GestureDetector(
-                  onTap: () async {
-                    if (nameController.text == '') {
-                      callWarningDialog(context, 'Please Fill Name');
-                    } else if (emailController.text == '') {
-                      callWarningDialog(context, 'Please Fill Email');
-                    } else if (passwordController.text == '') {
-                      callWarningDialog(context, 'Please Fill Password');
-                    } else if (confrimPasswordController.text == '') {
-                      callWarningDialog(
-                          context, 'Please Fill Confirm Password');
-                    } else if (confrimPasswordController.text !=
-                        passwordController.text) {
-                      callWarningDialog(context, 'Password Does not match');
-                    } else {}
-                  },
-                  child: BigButton(
-                    buttonColor: MasterColors.mainColor,
-                    text: "Sign Up",
+                SizedBox(
+                  height: Dimesion.height10,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () async {
+                      if (nameController.text == '') {
+                        callWarningDialog(context, 'Please Fill User Name');
+                      } else if (emailController.text == '') {
+                        callWarningDialog(context, 'Please Fill Email');
+                      } else if (passwordController.text == '') {
+                        callWarningDialog(context, 'Please Fill Password');
+                      } else if (confrimPasswordController.text == '') {
+                        callWarningDialog(
+                            context, 'Please Fill Confirm Password');
+                      } else if (confrimPasswordController.text !=
+                          passwordController.text) {
+                        callWarningDialog(context, 'Password Does not match');
+                      } else {}
+                    },
+                    child: BigButton(
+                      buttonColor: MasterColors.mainColor,
+                      text: "Sign Up",
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: Dimesion.height5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  InkWell(
-                    onTap: () {},
-                    child: Text("Already Registered?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: MasterColors.black,
-                          fontSize: Dimesion.font12 - 2,
-                        )),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RoutePaths.login,
-                      );
-                    },
-                    child: Text('Sign In here',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.blue,
-                          fontSize: Dimesion.font12 - 2,
-                        )),
-                  ),
-                ],
-              ),
-            ],
+                SizedBox(
+                  height: Dimesion.height5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {},
+                      child: Text("Already Registered?",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: MasterColors.black,
+                            fontSize: Dimesion.font12 - 2,
+                          )),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutePaths.login,
+                        );
+                      },
+                      child: Text('Sign In here',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.blue,
+                            fontSize: Dimesion.font12 - 2,
+                          )),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -5,10 +5,12 @@ import '../../core/constant/dimesions.dart';
 import 'rectangle_card.dart';
 
 class BigButton extends StatelessWidget {
-  const BigButton({Key? key, required this.text, required this.buttonColor})
+  const BigButton(
+      {Key? key, required this.text, required this.buttonColor, this.textColor})
       : super(key: key);
   final String text;
   final Color buttonColor;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,9 @@ class BigButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              color: MasterColors.white,
+              color: textColor ?? MasterColors.textColor1,
               fontSize: Dimesion.font12,
-              fontWeight: FontWeight.w100),
+              fontWeight: FontWeight.w600),
         ),
       ),
     );
