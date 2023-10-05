@@ -35,12 +35,12 @@ class MasterSharedPreferences {
         shared.getString(MasterConst.VALUE_HOLDER__USER_ID);
     final String? loginUserName =
         shared.getString(MasterConst.VALUE_HOLDER__USER_NAME);
-    final String? loginUserPhone =
-        shared.getString(MasterConst.VALUE_HOLDER__USER_PHONE);
+    final String? loginUserEmail =
+        shared.getString(MasterConst.VALUE_HOLDER__USER_EMAIL);
     final MasterValueHolder valueHolder = MasterValueHolder(
       loginUserId: loginUserId ?? '',
       loginUserName: loginUserName ?? '',
-      loginUserPhone: loginUserPhone ?? '',
+      loginUserEmail: loginUserEmail ?? '',
     );
 
     _valueController.add(valueHolder);
@@ -61,11 +61,11 @@ class MasterSharedPreferences {
   Future<dynamic> setLoginUserData({
     required String id,
     required String name,
-    required String phone,
+    required String email,
   }) async {
     await shared.setString(MasterConst.VALUE_HOLDER__USER_ID, id);
     await shared.setString(MasterConst.VALUE_HOLDER__USER_NAME, name);
-    await shared.setString(MasterConst.VALUE_HOLDER__USER_PHONE, phone);
+    await shared.setString(MasterConst.VALUE_HOLDER__USER_EMAIL, email);
     loadValueHolder();
   }
 }

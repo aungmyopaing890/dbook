@@ -1,4 +1,5 @@
 import 'package:dbook/core/repository/auth_repositroy.dart';
+import 'package:dbook/core/viewobject/user.dart';
 import 'package:dbook/screen/common/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,10 +30,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     super.initState();
-    // nameController.text = "aung11";
-    // emailController.text = "aua1111@gmail.com";
-    // passwordController.text = "password1";
-    // confrimPasswordController.text = "password1";
+    nameController.text = "aung11";
+    emailController.text = "aua1111@gmail.com";
+    passwordController.text = "password1";
+    confrimPasswordController.text = "password1";
   }
 
   @override
@@ -120,7 +121,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       } else if (confrimPasswordController.text !=
                           passwordController.text) {
                         callWarningDialog(context, 'Password Does not match');
-                      } else {}
+                      } else {
+                        authProvider.registerUser(context,
+                            user: User(
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ), callBackAfterLoginSuccess: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            "/",
+                          );
+                        });
+                      }
                     },
                     child: BigButton(
                       buttonColor: MasterColors.mainColor,

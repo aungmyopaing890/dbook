@@ -9,7 +9,6 @@ class MasterConst {
   /// USER
   static const String VALUE_HOLDER__USER_ID = 'USERID';
   static const String VALUE_HOLDER__USER_NAME = 'VALUE_HOLDER__USER_NAME';
-  static const String VALUE_HOLDER__USER_PHONE = 'VALUE_HOLDER__USER_PHONE';
   static const String VALUE_HOLDER__USER_EMAIL = 'VALUE_HOLDER__USER_EMAIL';
   static const String VALUE_HOLDER__USER_TOKEN = 'VALUE_HOLDER__USER_TOKEN';
 }

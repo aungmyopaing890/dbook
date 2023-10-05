@@ -60,8 +60,7 @@ class DatabaseHelper {
       CREATE TABLE $tableUser ( 
         ${MovieFields.id} $idType, 
         ${MovieFields.name} $textType,
-        ${MovieFields.phone} $textType,
-        ${MovieFields.email} $textType
+        ${MovieFields.email} $textType UNIQUE,
         ${MovieFields.password} $textType
         )
       ''');
@@ -84,7 +83,6 @@ class DatabaseHelper {
         {
           MovieFields.id: user.id,
           MovieFields.name: user.name,
-          MovieFields.phone: user.phone,
           MovieFields.email: user.email,
           MovieFields.password: user.password,
         },
@@ -107,22 +105,24 @@ class DatabaseHelper {
         : List<User>.from(itemMapList.map((x) => User().fromMap(x))).first;
   }
 
-  Future<dynamic> insertUser(User user) async {
+  Future<UserData> createUser(User user) async {
     final db = await database;
     final id = await db.insert(tableUser, {
       MovieFields.id: user.id,
       MovieFields.name: user.name,
-      MovieFields.phone: user.phone,
       MovieFields.email: user.email,
-      MovieFields.password: user.password,
+      MovieFields.password: user.password
     });
     if (id == 0) {
-      throw 'No rows were inserted to Movies';
+      // throw 'No rows were inserted to User';
+      return UserData(success: false, message: "No rows were inserted to User");
+    } else {
+      User? data = await getUserByID(id.toString());
+      return UserData(user: data, success: true, message: "Success");
     }
-    return id;
   }
 
-/////////////////////////////////////// End Movie //////////////////////////////////////
+/////////////////////////////////////// End User //////////////////////////////////////
   ///
 
   close() async {

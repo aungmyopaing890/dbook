@@ -21,14 +21,12 @@ class User {
   User({
     this.id,
     this.name,
-    this.phone,
     this.email,
     this.password,
   });
 
   String? id;
   String? name;
-  String? phone;
   String? email;
   String? password;
 
@@ -36,7 +34,6 @@ class User {
     return User(
       id: dynamicData['id'].toString(),
       name: dynamicData['name'],
-      phone: dynamicData['phone'],
       email: dynamicData['email'],
       password: dynamicData['password'],
     );
@@ -46,7 +43,6 @@ class User {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = object.id;
     data['name'] = object.name;
-    data['phone'] = object.phone;
     data['email'] = object.email;
     data['password'] = object.password;
     return data;
@@ -79,14 +75,12 @@ class MovieFields {
   static final List<String> values = [
     id,
     name,
-    phone,
     email,
     password,
   ];
 
   static const String id = 'id';
   static const String name = 'name';
-  static const String phone = 'phone';
   static const String email = 'email';
   static const String password = 'password';
 }

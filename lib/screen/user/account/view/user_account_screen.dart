@@ -43,7 +43,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
         ],
         child: Utils.isLogined(valueHolder)
             ? Scaffold(
-                backgroundColor: MasterColors.grey,
+                backgroundColor: MasterColors.appBackgorundColor,
                 body: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Column(
