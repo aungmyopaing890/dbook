@@ -217,7 +217,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                             top: Dimesion.height40,
                           ),
                           decoration: BoxDecoration(
-                            color: MasterColors.mainColor,
+                            color: MasterColors.rejectColor,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           alignment: Alignment.center,
