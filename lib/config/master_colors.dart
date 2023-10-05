@@ -43,7 +43,7 @@ class MasterColors {
 
   //Back ground Color
   static Color appBackgorundColor = const Color(0xFFF4F4F4);
-  static Color appBarBackgorundColor = mainColor;
+  static Color appBarBackgorundColor = white;
 
   ///
   /// Icon Color

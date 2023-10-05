@@ -60,7 +60,7 @@ class _AppbarWidget extends StatelessWidget {
         titleSpacing: 0,
         leading: leading,
         automaticallyImplyLeading: autoLeading,
-        backgroundColor: MasterColors.appBackgorundColor,
+        backgroundColor: MasterColors.appBarBackgorundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
         ),
@@ -82,7 +82,7 @@ class _AppbarWidget extends StatelessWidget {
         ),
         iconTheme: Theme.of(context).iconTheme,
         automaticallyImplyLeading: autoLeading,
-        backgroundColor: MasterColors.appBackgorundColor,
+        backgroundColor: MasterColors.appBarBackgorundColor,
         centerTitle: false,
         title: Text(appBarTitle ?? '',
             textAlign: TextAlign.center,
