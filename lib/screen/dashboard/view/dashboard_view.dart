@@ -66,8 +66,6 @@ class _HomeViewState extends State<DashboardView>
     WidgetsBinding.instance.addObserver(this);
   }
 
-  // final _drawerController = ZoomDrawerController();
-
   @override
   Widget build(BuildContext context) {
     Future<bool> onWillPop() {
@@ -151,9 +149,7 @@ class _HomeViewState extends State<DashboardView>
           ],
         ),
       ),
-    )
-        // )
-        ;
+    );
   }
 
   int getBottonNavigationIndex(int? param) {
@@ -166,7 +162,7 @@ class _HomeViewState extends State<DashboardView>
         index = 1;
         break;
       default:
-        index = 0;
+        index = MasterConst.REQUEST_CODE__HOME_FRAGMENT;
         break;
     }
     return index;
@@ -185,7 +181,7 @@ class _HomeViewState extends State<DashboardView>
         title = 'Profile';
         break;
       default:
-        index = 0;
+        index = MasterConst.REQUEST_CODE__HOME_FRAGMENT;
         title = 'Home';
         break;
     }
