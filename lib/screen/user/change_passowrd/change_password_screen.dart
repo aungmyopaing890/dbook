@@ -1,12 +1,11 @@
+import 'package:dbook/screen/common/app_bar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:dbook/core/repository/auth_repositroy.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/master_colors.dart';
 import '../../../core/constant/dimesions.dart';
 import '../../../core/provider/auth/auth_provider.dart';
-import '../../../core/utils/utils.dart';
 import '../../common/button_widgets.dart';
 import '../../common/dialog/warning_dialog_view.dart';
 import '../../common/textfields/master_textfield_widget.dart';
@@ -48,9 +47,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ],
         child: Scaffold(
           backgroundColor: MasterColors.appBackgorundColor,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            centerTitle: true,
+          appBar: AppbarWidget(
             leading: InkWell(
               onTap: () => Navigator.pop(context),
               child: Icon(
@@ -59,20 +56,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 size: Dimesion.height24,
               ),
             ),
-            title: Text(
-              "Change Password",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: MasterColors.black),
-            ),
-            elevation: 0,
-            iconTheme: IconThemeData(color: MasterColors.textColor2),
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarBrightness: Brightness.dark,
-              statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
-            ),
+            appBarTitle: "Change Password",
           ),
           body: SingleChildScrollView(
             child: Column(

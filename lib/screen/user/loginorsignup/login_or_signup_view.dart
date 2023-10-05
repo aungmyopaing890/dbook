@@ -1,3 +1,4 @@
+import 'package:dbook/config/master_config.dart';
 import 'package:flutter/material.dart';
 import '../../../config/master_colors.dart';
 import '../../../config/route/route_paths.dart';
@@ -31,7 +32,7 @@ class _LoginOrSignUpViewState extends State<LoginOrSignUpView> {
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(bottom: Dimesion.height30),
-              child: Text("Welcome To SayThaughtMal",
+              child: Text("Welcome To ${MasterConfig.app_name}",
                   style: Theme.of(context).textTheme.titleLarge!.copyWith()),
             ),
             InkWell(

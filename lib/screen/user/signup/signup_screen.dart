@@ -1,13 +1,12 @@
 import 'package:dbook/core/repository/auth_repositroy.dart';
+import 'package:dbook/screen/common/app_bar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../config/master_colors.dart';
 import '../../../config/route/route_paths.dart';
 import '../../../core/constant/dimesions.dart';
 import '../../../core/provider/auth/auth_provider.dart';
-import '../../../core/utils/utils.dart';
 import '../../common/button_widgets.dart';
 import '../../common/dialog/warning_dialog_view.dart';
 import '../../common/textfields/master_textfield_widget.dart';
@@ -51,9 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ],
       child: Scaffold(
         backgroundColor: MasterColors.appBackgorundColor,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          centerTitle: false,
+        appBar: AppbarWidget(
           leading: InkWell(
             onTap: () => Navigator.pop(context),
             child: Icon(
@@ -62,18 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               size: Dimesion.height24,
             ),
           ),
-          title: Text(
-            'Sign Up',
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.bold, color: MasterColors.textColor1),
-          ),
-          elevation: 0,
-          iconTheme: IconThemeData(color: MasterColors.textColor2),
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarBrightness: Brightness.light,
-            statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
-          ),
+          appBarTitle: "Sign up",
         ),
         body: SingleChildScrollView(
           child: Container(

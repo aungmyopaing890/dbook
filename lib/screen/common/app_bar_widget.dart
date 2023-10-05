@@ -46,15 +46,15 @@ class _AppbarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // this is custom appbar with leading
     if (leading != null) {
       return AppBar(
-        primary: false,
         titleSpacing: 0,
         leading: leading,
+        backgroundColor: MasterColors.appBackgorundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
         ),
+        centerTitle: false,
         iconTheme:
             Theme.of(context).iconTheme.copyWith(color: MasterColors.mainColor),
         title: Text(appBarTitle ?? '',
@@ -71,6 +71,8 @@ class _AppbarWidget extends StatelessWidget {
           statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
         ),
         iconTheme: Theme.of(context).iconTheme,
+        backgroundColor: MasterColors.appBackgorundColor,
+        centerTitle: false,
         title: Text(appBarTitle ?? '',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(

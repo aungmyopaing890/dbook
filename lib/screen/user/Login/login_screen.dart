@@ -1,13 +1,12 @@
 import 'package:dbook/core/provider/auth/auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../config/master_colors.dart';
 import '../../../../config/route/route_paths.dart';
 import '../../../../core/constant/dimesions.dart';
-import '../../../../core/utils/utils.dart';
 import '../../../core/repository/auth_repositroy.dart';
+import '../../common/app_bar_widget.dart';
 import '../../common/button_widgets.dart';
 import '../../common/dialog/warning_dialog_view.dart';
 import '../../common/textfields/master_textfield_widget.dart';
@@ -47,24 +46,16 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
       child: Scaffold(
         backgroundColor: MasterColors.appBackgorundColor,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          centerTitle: false,
-          automaticallyImplyLeading: true,
-          elevation: 0,
-          iconTheme: IconThemeData(
-            color: MasterColors.black,
+        appBar: AppbarWidget(
+          leading: InkWell(
+            onTap: () => Navigator.pop(context),
+            child: Icon(
+              Icons.arrow_back,
+              color: MasterColors.black,
+              size: Dimesion.height24,
+            ),
           ),
-          title: Text(
-            'Login',
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.bold, color: MasterColors.textColor1),
-          ),
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarBrightness: Brightness.light,
-            statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
-          ),
+          appBarTitle: "Login",
         ),
         body: SingleChildScrollView(
           child: Column(

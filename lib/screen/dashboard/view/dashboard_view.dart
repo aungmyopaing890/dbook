@@ -7,8 +7,8 @@ import 'package:dbook/config/master_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../config/master_colors.dart';
 import '../../../core/constant/master_constants.dart';
+import '../../common/app_bar_widget.dart';
 import '../../common/dialog/confirm_dialog_view.dart';
-import '../widget/app_bar/appbar.dart';
 import '../widget/body/dashboard_body_widget.dart';
 
 class DashboardView extends StatefulWidget {
@@ -100,8 +100,8 @@ class _HomeViewState extends State<DashboardView>
       onWillPop: onWillPop,
       child: Scaffold(
         key: scaffoldKey,
-        appBar: DashboardAppBar(
-          appBarTitleName: appBarTitleName,
+        appBar: AppbarWidget(
+          appBarTitle: appBarTitleName,
         ),
         body: DashboardBodyWidget(
           currentIndex: _currentIndex!,

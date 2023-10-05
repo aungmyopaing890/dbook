@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 
 import '../../../config/route/route_paths.dart';
 import '../../../core/constant/dimesions.dart';
-import '../../../core/utils/utils.dart';
 import '../../../core/viewobject/common/master_value_holder.dart';
 
 class AppLoadingView extends StatefulWidget {
@@ -26,13 +25,11 @@ class _AppLoadingViewState extends State<AppLoadingView>
 
   Future<dynamic> callDateFunction(
       AuthProvider provider, BuildContext context) async {
-    if (await Utils.checkInternetConnectivity()) {
-      await Future.delayed(const Duration(seconds: 3));
-      Navigator.pushReplacementNamed(
-        context,
-        RoutePaths.home,
-      );
-    }
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.pushReplacementNamed(
+      context,
+      RoutePaths.home,
+    );
   }
 
   @override
