@@ -27,6 +27,15 @@ class AuthRepository {
     return resource;
   }
 
+  Future<int> deleteUser() async {
+    String? userid = await MasterSharedPreferences.instance.getLoginUserID();
+    final int resource = await _databaseHelper!.deleteUser(userid ?? "0");
+    if (resource == 1) {
+      setLoginUserData(User());
+    }
+    return resource;
+  }
+
   Future<dynamic> setLoginUserData(User user) async {
     await MasterSharedPreferences.instance.setLoginUserData(
       id: user.id ?? '',
@@ -36,11 +45,7 @@ class AuthRepository {
   }
 
   Future<dynamic> logoutUser() async {
-    await MasterSharedPreferences.instance.setLoginUserData(
-      id: '',
-      name: '',
-      email: '',
-    );
+    setLoginUserData(User());
     return true;
   }
 }

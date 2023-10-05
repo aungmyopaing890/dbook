@@ -163,6 +163,14 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                                             rightButtonText: 'Ok',
                                             onAgreeTap: () async {
                                               Navigator.pop(context);
+                                              authProvider.deleteUser(context,
+                                                  callBackAfterDeleteSuccess:
+                                                      () {
+                                                Navigator.pushReplacementNamed(
+                                                  context,
+                                                  "/",
+                                                );
+                                              });
                                             });
                                       });
                                 },

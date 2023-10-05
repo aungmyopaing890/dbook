@@ -65,6 +65,28 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteUser(BuildContext context,
+      {required Function callBackAfterDeleteSuccess}) async {
+    await MasterProgressDialog.showDialog(context);
+    int resource = await _authRepository!.deleteUser();
+    MasterProgressDialog.dismissDialog();
+    if (resource == 1) {
+      ///
+      /// Success
+      ///
+      callBackAfterDeleteSuccess();
+    } else {
+      showDialog<dynamic>(
+          context: context,
+          builder: (BuildContext context) {
+            return const ErrorDialog(
+              message: "Successfully Deleted!",
+            );
+          });
+    }
+    notifyListeners();
+  }
+
   Future<void> logoutUser(BuildContext context,
       {required Function logout}) async {
     logout();
