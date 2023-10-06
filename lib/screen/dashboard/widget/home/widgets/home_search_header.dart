@@ -46,7 +46,7 @@ class SearchHeaderWidget extends StatelessWidget {
             suffixIcon: InkWell(
                 child: Icon(
                   Icons.search,
-                  color: MasterColors.mainColor,
+                  color: MasterColors.black,
                 ),
                 onTap: () => routeFunc()),
           ),

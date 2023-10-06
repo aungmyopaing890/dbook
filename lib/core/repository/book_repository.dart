@@ -16,4 +16,8 @@ class BookRepository {
   Future<BookData> searchDataList(String keyword) async {
     return await _apiService!.searchBook(keyword);
   }
+
+  Future<Book> loadData(String id) async {
+    return await _apiService!.getBookDetail(id);
+  }
 }

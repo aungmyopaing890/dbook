@@ -19,30 +19,62 @@ class BookData {
 }
 
 class Book {
-  Book({this.title, this.authors, this.subtitle, this.image, this.url});
-
+  Book(
+      {this.id,
+      this.title,
+      this.authors,
+      this.subtitle,
+      this.image,
+      this.url,
+      this.description,
+      this.publisher,
+      this.pages,
+      this.year,
+      this.download,
+      this.status});
+  String? id;
   String? title;
   String? authors;
   String? subtitle;
   String? image;
   String? url;
+  String? description;
+  String? publisher;
+  String? pages;
+  String? year;
+  String? download;
+  String? status;
   Book fromMap(dynamic dynamicData) {
     return Book(
-      title: dynamicData["title"],
-      authors: dynamicData["authors"],
-      subtitle: dynamicData["subtitle"],
-      image: dynamicData["image"],
-      url: dynamicData["url"],
+      id: dynamicData["id"] ?? "",
+      title: dynamicData["title"] ?? "",
+      authors: dynamicData["authors"] ?? "",
+      subtitle: dynamicData["subtitle"] ?? "",
+      image: dynamicData["image"] ?? "",
+      url: dynamicData["url"] ?? "",
+      description: dynamicData["description"] ?? "",
+      publisher: dynamicData["publisher"] ?? "",
+      pages: dynamicData["pages"] ?? "",
+      year: dynamicData["year"] ?? "",
+      download: dynamicData["download"] ?? "",
+      status: dynamicData["status"] ?? "",
     );
   }
 
   Map<String, dynamic>? toMap(Book object) {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = object.id;
     data['title'] = object.title;
     data['authors'] = object.authors;
     data['subtitle'] = object.subtitle;
     data['image'] = object.image;
     data['url'] = object.url;
+    data['description'] = object.description;
+    data['publisher'] = object.publisher;
+    data['pages'] = object.pages;
+    data['year'] = object.year;
+    data['download'] = object.download;
+    data['status'] = object.status;
     return data;
   }
 

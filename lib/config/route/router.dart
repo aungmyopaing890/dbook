@@ -1,3 +1,5 @@
+import 'package:dbook/core/viewobject/holder/intent_holder/book_detail_intent_holder.dart';
+import 'package:dbook/screen/book/view/book_details_view.dart';
 import 'package:dbook/screen/book/view/book_search_view.dart';
 import 'package:dbook/screen/user/Login/login_screen.dart';
 import 'package:dbook/screen/user/signup/signup_screen.dart';
@@ -56,7 +58,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           builder: (BuildContext context) {
             return const ChangePasswordScreen();
           });
-
+    case RoutePaths.bookDetails:
+      return MaterialPageRoute<dynamic>(
+          settings: const RouteSettings(name: RoutePaths.bookDetails),
+          builder: (BuildContext context) {
+            final Object? args = settings.arguments;
+            final BookDetailsIntentHolder holder =
+                args as BookDetailsIntentHolder;
+            return BookDetailsView(
+              id: holder.id,
+            );
+          });
     default:
       return PageRouteBuilder<dynamic>(
           pageBuilder: (_, Animation<double> a1, Animation<double> a2) =>

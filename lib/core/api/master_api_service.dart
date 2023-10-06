@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'dart:convert';
 import 'package:dbook/config/master_config.dart';
 import 'package:dbook/core/viewobject/book.dart';
@@ -36,5 +38,23 @@ class MasterApiService {
         await http.Response.fromStream(await request.send());
     final dynamic hashMap = json.decode(res.body);
     return BookData().fromMap(hashMap);
+  }
+
+  /// Book Detail
+  ///
+
+  Future<Book> getBookDetail(String id) async {
+    String newid = id.replaceAll(RegExp("[a-zA-Z:\s]"), "");
+    String url = '${MasterConfig.app_url}book/$newid';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+    var request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    final http.Response res =
+        await http.Response.fromStream(await request.send());
+    final dynamic hashMap = json.decode(res.body);
+    return Book().fromMap(hashMap);
   }
 }

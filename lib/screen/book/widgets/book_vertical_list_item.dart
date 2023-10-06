@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dbook/config/route/route_paths.dart';
 import 'package:dbook/core/viewobject/book.dart';
+import 'package:dbook/core/viewobject/holder/intent_holder/book_detail_intent_holder.dart';
 import 'package:dbook/screen/common/customshimmer.dart';
 import 'package:flutter/material.dart';
 import '../../../config/master_colors.dart';
@@ -14,7 +16,11 @@ class BookVarticalListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        final BookDetailsIntentHolder holder =
+            BookDetailsIntentHolder(id: book.id ?? "");
+        Navigator.pushNamed(context, RoutePaths.bookDetails, arguments: holder);
+      },
       child: Container(
         decoration: BoxDecoration(
             color: MasterColors.white,
