@@ -1,4 +1,5 @@
 import 'package:dbook/config/master_colors.dart';
+import 'package:dbook/screen/book/widgets/book_vertical_list.dart';
 import 'package:flutter/material.dart';
 import 'package:dbook/screen/dashboard/widget/home/widgets/home_search_header.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
             lazy: false,
             create: (BuildContext context) {
               bookProvider = BookProvider(repository: bannerRepository);
+              bookProvider.loadDataList();
               return bookProvider;
             }),
       ],
@@ -37,7 +39,9 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimesion.width10),
           child: RefreshIndicator(
-            onRefresh: () async {},
+            onRefresh: () async {
+              bookProvider.loadDataList();
+            },
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
@@ -58,6 +62,7 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
                   SizedBox(
                     height: Dimesion.height20,
                   ),
+                  const BookVerticalList()
                 ],
               ),
             ),

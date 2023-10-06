@@ -6,7 +6,9 @@ class BookProvider extends ChangeNotifier {
   BookProvider({
     required BookRepository repository,
     int limit = 0,
-  });
+  }) {
+    _repository = repository;
+  }
 
   BookRepository? _repository;
   BookData data = BookData();

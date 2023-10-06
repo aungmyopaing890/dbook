@@ -9,7 +9,7 @@ class BookData {
   BookData fromMap(Map<String, dynamic> dynamicData) {
     return BookData(
       status: dynamicData['status'],
-      data: Book().fromMapList(dynamicData['data']),
+      data: Book().fromMapList(dynamicData['books']),
     );
   }
 }
