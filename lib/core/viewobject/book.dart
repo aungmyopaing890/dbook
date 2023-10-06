@@ -31,7 +31,8 @@ class Book {
       this.pages,
       this.year,
       this.download,
-      this.status});
+      this.status,
+      this.isFavourite = false});
   String? id;
   String? title;
   String? authors;
@@ -44,37 +45,40 @@ class Book {
   String? year;
   String? download;
   String? status;
+  bool isFavourite;
   Book fromMap(dynamic dynamicData) {
     return Book(
-      id: dynamicData["id"] ?? "",
-      title: dynamicData["title"] ?? "",
-      authors: dynamicData["authors"] ?? "",
-      subtitle: dynamicData["subtitle"] ?? "",
-      image: dynamicData["image"] ?? "",
-      url: dynamicData["url"] ?? "",
-      description: dynamicData["description"] ?? "",
-      publisher: dynamicData["publisher"] ?? "",
-      pages: dynamicData["pages"] ?? "",
-      year: dynamicData["year"] ?? "",
-      download: dynamicData["download"] ?? "",
-      status: dynamicData["status"] ?? "",
+      id: dynamicData[BooksFields.id] ?? "",
+      title: dynamicData[BooksFields.title] ?? "",
+      authors: dynamicData[BooksFields.authors] ?? "",
+      subtitle: dynamicData[BooksFields.subtitle] ?? "",
+      image: dynamicData[BooksFields.image] ?? "",
+      url: dynamicData[BooksFields.url] ?? "",
+      description: dynamicData[BooksFields.description] ?? "",
+      publisher: dynamicData[BooksFields.publisher] ?? "",
+      pages: dynamicData[BooksFields.pages] ?? "",
+      year: dynamicData[BooksFields.year] ?? "",
+      download: dynamicData[BooksFields.download] ?? "",
+      status: dynamicData[BooksFields.status] ?? "",
+      isFavourite: dynamicData[BooksFields.isFavourite] ?? false,
     );
   }
 
-  Map<String, dynamic>? toMap(Book object) {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = object.id;
-    data['title'] = object.title;
-    data['authors'] = object.authors;
-    data['subtitle'] = object.subtitle;
-    data['image'] = object.image;
-    data['url'] = object.url;
-    data['description'] = object.description;
-    data['publisher'] = object.publisher;
-    data['pages'] = object.pages;
-    data['year'] = object.year;
-    data['download'] = object.download;
-    data['status'] = object.status;
+  Map<String, Object> toMap(Book object) {
+    final Map<String, Object> data = <String, Object>{};
+    data[BooksFields.id] = object.id ?? "";
+    data[BooksFields.title] = object.title ?? "";
+    data[BooksFields.authors] = object.authors ?? "";
+    data[BooksFields.subtitle] = object.subtitle ?? "";
+    data[BooksFields.image] = object.image ?? "";
+    data[BooksFields.url] = object.url ?? "";
+    data[BooksFields.description] = object.description ?? "";
+    data[BooksFields.publisher] = object.publisher ?? "";
+    data[BooksFields.pages] = object.pages ?? "";
+    data[BooksFields.year] = object.year ?? "";
+    data[BooksFields.download] = object.download ?? "";
+    data[BooksFields.status] = object.status ?? "";
+    data[BooksFields.isFavourite] = object.isFavourite == true ? 1 : 0;
     return data;
   }
 
@@ -97,4 +101,38 @@ class Book {
     }
     return mapList;
   }
+}
+
+const String tableBook = 'books';
+
+class BooksFields {
+  static final List<String> values = [
+    id,
+    title,
+    authors,
+    subtitle,
+    image,
+    url,
+    description,
+    publisher,
+    pages,
+    year,
+    download,
+    status,
+    isFavourite
+  ];
+
+  static const String id = 'id';
+  static const String title = 'title';
+  static const String authors = 'authors';
+  static const String subtitle = 'subtitle';
+  static const String image = 'image';
+  static const String url = 'url';
+  static const String description = 'description';
+  static const String publisher = 'publisher';
+  static const String pages = 'pages';
+  static const String year = 'year';
+  static const String download = 'download';
+  static const String status = 'status';
+  static const String isFavourite = 'is_favourite';
 }

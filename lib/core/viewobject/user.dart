@@ -71,7 +71,7 @@ class User {
 
 const String tableUser = 'users';
 
-class MovieFields {
+class UserFields {
   static final List<String> values = [
     id,
     name,

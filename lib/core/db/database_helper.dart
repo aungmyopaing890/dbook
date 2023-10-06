@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dbook/core/viewobject/book.dart';
 import 'package:dbook/core/viewobject/change_password.dart';
 import 'package:dbook/core/viewobject/user.dart';
 import 'package:path/path.dart';
@@ -57,12 +58,31 @@ class DatabaseHelper {
   void _createDb(Database db, int newVersion) async {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
+    const intType = 'INT NOT NULL';
+
     await db.execute('''
       CREATE TABLE $tableUser ( 
-        ${MovieFields.id} $idType, 
-        ${MovieFields.name} $textType,
-        ${MovieFields.email} $textType UNIQUE,
-        ${MovieFields.password} $textType
+        ${UserFields.id} $idType, 
+        ${UserFields.name} $textType,
+        ${UserFields.email} $textType UNIQUE,
+        ${UserFields.password} $textType
+        )
+      ''');
+    await db.execute('''
+      CREATE TABLE $tableBook ( 
+        ${BooksFields.id} $idType, 
+        ${BooksFields.title} $textType,
+        ${BooksFields.authors} $textType,
+        ${BooksFields.subtitle} $textType,
+        ${BooksFields.image} $textType,
+        ${BooksFields.url} $textType,
+        ${BooksFields.description} $textType,
+        ${BooksFields.publisher} $textType,
+        ${BooksFields.pages} $textType,
+        ${BooksFields.year} $textType,
+        ${BooksFields.download} $textType,
+        ${BooksFields.status} $textType,
+        ${BooksFields.isFavourite} $intType
         )
       ''');
   }
@@ -82,8 +102,8 @@ class DatabaseHelper {
   }) async {
     var db = await database;
     var itemMapList = await db.query(tableUser,
-        columns: MovieFields.values,
-        where: '${MovieFields.id} = ? AND ${MovieFields.password} = ?',
+        columns: UserFields.values,
+        where: '${UserFields.id} = ? AND ${UserFields.password} = ?',
         whereArgs: [id, oldPassword]);
     if (itemMapList.isEmpty) {
       return ChangePasswordReturn(
@@ -92,7 +112,7 @@ class DatabaseHelper {
       await db.update(
           tableUser,
           {
-            MovieFields.password: newPassword,
+            UserFields.password: newPassword,
           },
           where: 'id = ?',
           whereArgs: [int.parse(id.toString())]);
@@ -118,10 +138,10 @@ class DatabaseHelper {
   Future<UserData> createUser(User user) async {
     final db = await database;
     final id = await db.insert(tableUser, {
-      MovieFields.id: user.id,
-      MovieFields.name: user.name,
-      MovieFields.email: user.email,
-      MovieFields.password: user.password
+      UserFields.id: user.id,
+      UserFields.name: user.name,
+      UserFields.email: user.email,
+      UserFields.password: user.password
     });
     if (id == 0) {
       // throw 'No rows were inserted to User';
@@ -135,8 +155,8 @@ class DatabaseHelper {
   Future<UserData> checkUser(String userName, String password) async {
     final db = await database;
     var itemMapList = await db.query(tableUser,
-        columns: MovieFields.values,
-        where: '${MovieFields.name} = ? AND ${MovieFields.password} = ?',
+        columns: UserFields.values,
+        where: '${UserFields.name} = ? AND ${UserFields.password} = ?',
         whereArgs: [userName, password]);
     if (itemMapList.isEmpty) {
       return UserData(success: false, message: "UserName or Password Wrong!");
@@ -148,9 +168,53 @@ class DatabaseHelper {
     }
   }
 
-/////////////////////////////////////// End User //////////////////////////////////////
+  /////////////////////////////////////// End User //////////////////////////////////////
   ///
+  /////////////////////////////////////// Start Book //////////////////////////////////////
+  Future<List<Book>> fetchBooks() async {
+    final db = await database;
+    var itemMapList = await db.query(tableBook);
+    return List<Book>.from(itemMapList.map((x) => User().fromMap(x)));
+  }
 
+  Future<List<Book>> getFavBooks() async {
+    final db = await database;
+    var itemMapList = await db.query(tableBook,
+        where: '${BooksFields.isFavourite} = ?', whereArgs: [1]);
+    return List<Book>.from(itemMapList.map((x) => User().fromMap(x)));
+  }
+
+  Future<int> insertBook(Book book) async {
+    final db = await database;
+    return await db.insert(tableBook, Book().toMap(book));
+  }
+
+  Future<List<Book>> insertBookList(List<Book> books) async {
+    books.map((e) async => await insertBook(e));
+    return fetchBooks();
+  }
+
+  Future<List<Book>> favBook(String id, bool isFavourite) async {
+    final db = await database;
+    await db.update(
+        tableBook,
+        {
+          BooksFields.isFavourite: isFavourite == true ? 1 : 0,
+        },
+        where: 'id = ?',
+        whereArgs: [int.parse(id)]);
+    return getFavBooks();
+  }
+
+  Future<List<Book>> deleteBooks() async {
+    final db = await database;
+    await db.delete(tableBook,
+        where: '${BooksFields.isFavourite} = ?', whereArgs: [0]);
+    return getFavBooks();
+  }
+
+  /////////////////////////////////////// End Book //////////////////////////////////////
+  ///
   close() async {
     var db = await database;
     var result = db.close();

@@ -82,22 +82,43 @@ class _BookDetailsViewState extends State<BookDetailsView> {
                                         image: img, fit: BoxFit.fill)),
                               );
                             }),
-                    Container(
-                        margin: EdgeInsets.only(top: Dimesion.height10),
-                        height: Dimesion.height50,
-                        child: pro.isLoading
-                            ? const CustomShimmer()
-                            : Text(
-                                'Name : ${book.title}',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(
-                                      color: MasterColors.black,
-                                    ),
-                              )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            margin: EdgeInsets.only(top: Dimesion.height10),
+                            height: Dimesion.height50,
+                            width: Dimesion.screenWidth * 0.7,
+                            child: pro.isLoading
+                                ? const CustomShimmer()
+                                : Text(
+                                    'Name : ${book.title}',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          color: MasterColors.black,
+                                        ),
+                                  )),
+                        InkWell(
+                            onTap: () async {},
+                            child: Container(
+                                margin: EdgeInsets.only(top: Dimesion.height10),
+                                child: book.isFavourite
+                                    ? Icon(
+                                        Icons.favorite,
+                                        color: Colors.white,
+                                        size: Dimesion.iconSize32,
+                                      )
+                                    : Icon(
+                                        Icons.favorite_outline,
+                                        color: MasterColors.red,
+                                        size: Dimesion.iconSize32,
+                                      )))
+                      ],
+                    ),
                     SizedBox(
                       height: Dimesion.height10,
                     ),
