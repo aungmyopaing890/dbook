@@ -23,9 +23,7 @@ class MasterConfig {
   /// API URL
   /// Change your backend url
   ///
-  static const String core_url = 'https://saytaughtmal.lmsmm.com';
-
-  static const String app_url = '$core_url/api/';
+  static const String app_url = 'https://www.dbooks.org/api/';
 
   ///
   /// Animation Duration

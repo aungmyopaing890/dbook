@@ -7,8 +7,8 @@ class MasterApiService {
   /// Load BookData
   ///
 
-  Future<BookData> getBookList() async {
-    const String url = '${MasterConfig.app_url}banners';
+  Future<BookData> getRecentBookList() async {
+    const String url = '${MasterConfig.app_url}recent';
     var headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

@@ -10,6 +10,6 @@ class BookRepository {
   MasterApiService? _apiService;
 
   Future<BookData> loadDataList() async {
-    return await _apiService!.getBookList();
+    return await _apiService!.getRecentBookList();
   }
 }
