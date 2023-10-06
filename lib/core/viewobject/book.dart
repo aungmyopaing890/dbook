@@ -1,17 +1,14 @@
 class BookData {
   BookData({
-    this.success,
-    this.message,
+    this.status,
     this.data,
   });
-  bool? success;
-  String? message;
+  String? status;
   List<Book>? data;
 
   BookData fromMap(Map<String, dynamic> dynamicData) {
     return BookData(
-      success: dynamicData['status'],
-      message: 'Success',
+      status: dynamicData['status'],
       data: Book().fromMapList(dynamicData['data']),
     );
   }
