@@ -7,10 +7,14 @@ class BookData {
   List<Book>? data;
 
   BookData fromMap(Map<String, dynamic> dynamicData) {
-    return BookData(
-      status: dynamicData['status'],
-      data: Book().fromMapList(dynamicData['books']),
-    );
+    if (dynamicData['books'] == null) {
+      return BookData(status: dynamicData['status'], data: []);
+    } else {
+      return BookData(
+        status: dynamicData['status'],
+        data: Book().fromMapList(dynamicData['books']),
+      );
+    }
   }
 }
 

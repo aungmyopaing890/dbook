@@ -11,6 +11,7 @@ class EmptyBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: Dimesion.screeHigh * 0.5,
+      width: Dimesion.screenWidth,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

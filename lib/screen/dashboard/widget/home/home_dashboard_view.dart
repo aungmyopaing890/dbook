@@ -68,7 +68,25 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
                   SizedBox(
                     height: Dimesion.height20,
                   ),
-                  const BookVerticalList()
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.symmetric(vertical: Dimesion.height10),
+                    child: Text(
+                      "Recent Books",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Consumer<BookProvider>(builder:
+                      (BuildContext context, BookProvider pro, Widget? child) {
+                    return BookVerticalList(
+                        dataLength: pro.datalength,
+                        dataList: pro.isLoading ? [] : pro.data.data,
+                        hasData: pro.hasData,
+                        isLoading: pro.isLoading);
+                  })
                 ],
               ),
             ),

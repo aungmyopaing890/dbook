@@ -2,6 +2,7 @@ import 'package:dbook/core/provider/book/book_search_provider.dart';
 import 'package:dbook/core/repository/book_repository.dart';
 import 'package:dbook/screen/book/widgets/book_vertical_list.dart';
 import 'package:dbook/screen/common/app_bar_widget.dart';
+import 'package:dbook/screen/common/empty_box_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../config/master_colors.dart';
@@ -33,7 +34,7 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
             }),
       ],
       child: Scaffold(
-        backgroundColor: MasterColors.grey,
+        backgroundColor: MasterColors.appBackgorundColor,
         appBar: AppbarWidget(
           leading: InkWell(
             onTap: () => Navigator.pop(context),
@@ -58,7 +59,31 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
                     search: () {
                       searchProvider.loadDataList(searchController.text);
                     }),
-                const BookVerticalList(),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.symmetric(vertical: Dimesion.height10),
+                  child: Text(
+                    "Search Books",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Consumer<BookSearchProvider>(builder: (BuildContext context,
+                    BookSearchProvider pro, Widget? child) {
+                  return (pro.hasData || pro.isLoading)
+                      ? BookVerticalList(
+                          dataLength: pro.datalength,
+                          dataList: pro.isLoading ? [] : pro.data.data,
+                          hasData: pro.hasData,
+                          isLoading: pro.isLoading)
+                      : Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: Dimesion.height10),
+                          child: const EmptyBoxWidget(
+                              message: "There is no books"));
+                })
               ],
             ),
           ),
