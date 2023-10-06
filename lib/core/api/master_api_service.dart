@@ -20,4 +20,21 @@ class MasterApiService {
     final dynamic hashMap = json.decode(res.body);
     return BookData().fromMap(hashMap);
   }
+
+  /// Search Book
+  ///
+
+  Future<BookData> searchBook(String keyword) async {
+    String url = '${MasterConfig.app_url}/search/$keyword';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+    var request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    final http.Response res =
+        await http.Response.fromStream(await request.send());
+    final dynamic hashMap = json.decode(res.body);
+    return BookData().fromMap(hashMap);
+  }
 }

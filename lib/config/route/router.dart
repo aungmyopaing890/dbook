@@ -1,3 +1,4 @@
+import 'package:dbook/screen/book/view/book_search_view.dart';
 import 'package:dbook/screen/user/Login/login_screen.dart';
 import 'package:dbook/screen/user/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           settings: const RouteSettings(name: RoutePaths.loginOrSignup),
           builder: (BuildContext context) {
             return const LoginOrSignUpView();
+          });
+    case RoutePaths.searchBook:
+      return MaterialPageRoute<dynamic>(
+          settings: const RouteSettings(name: RoutePaths.searchBook),
+          builder: (BuildContext context) {
+            return const BookSearchScreen();
           });
 
     case RoutePaths.changePassword:

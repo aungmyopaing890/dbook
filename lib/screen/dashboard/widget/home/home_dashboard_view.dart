@@ -1,4 +1,5 @@
 import 'package:dbook/config/master_colors.dart';
+import 'package:dbook/config/route/route_paths.dart';
 import 'package:dbook/screen/book/widgets/book_vertical_list.dart';
 import 'package:flutter/material.dart';
 import 'package:dbook/screen/dashboard/widget/home/widgets/home_search_header.dart';
@@ -56,7 +57,12 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
                     child: SearchHeaderWidget(
                       searchController: searchController,
                       hintText: 'Search Books ....',
-                      routeFunc: () {},
+                      routeFunc: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutePaths.searchBook,
+                        );
+                      },
                     ),
                   ),
                   SizedBox(
