@@ -4,7 +4,7 @@ import 'package:dbook/screen/dashboard/widget/home/widgets/home_search_header.da
 import 'package:provider/provider.dart';
 import '../../../../core/constant/dimesions.dart';
 import '../../../../core/provider/book/book_provider.dart';
-import '../../../../core/repository/banner_repository.dart';
+import '../../../../core/repository/book_repository.dart';
 
 class HomeDashboardViewWidget extends StatefulWidget {
   const HomeDashboardViewWidget({super.key});

@@ -7,12 +7,11 @@ class MasterApiService {
   /// Load BookData
   ///
 
-  Future<BookData> getBookList(String token) async {
+  Future<BookData> getBookList() async {
     const String url = '${MasterConfig.app_url}banners';
     var headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token'
     };
     var request = http.Request('GET', Uri.parse(url));
     request.headers.addAll(headers);

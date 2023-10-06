@@ -1,7 +1,7 @@
 import 'package:dbook/core/db/database_helper.dart';
 import 'package:dbook/core/repository/auth_repositroy.dart';
 import 'package:flutter/material.dart';
-import 'package:dbook/core/repository/banner_repository.dart';
+import 'package:dbook/core/repository/book_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
