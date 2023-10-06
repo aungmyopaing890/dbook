@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'dart:io';
 import 'package:dbook/core/viewobject/book.dart';
 import 'package:dbook/core/viewobject/change_password.dart';
@@ -58,7 +60,7 @@ class DatabaseHelper {
   void _createDb(Database db, int newVersion) async {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
-    const intType = 'INT NOT NULL';
+    const intType = 'INTEGER NOT NULL';
 
     await db.execute('''
       CREATE TABLE $tableUser ( 
@@ -194,16 +196,12 @@ class DatabaseHelper {
     return fetchBooks();
   }
 
-  Future<List<Book>> favBook(String id, bool isFavourite) async {
-    final db = await database;
-    await db.update(
-        tableBook,
-        {
-          BooksFields.isFavourite: isFavourite == true ? 1 : 0,
-        },
-        where: 'id = ?',
-        whereArgs: [int.parse(id)]);
-    return getFavBooks();
+  Future<int> favBook(Book book) =>
+      book.isFavourite ? insertBook(book) : deleteBook(book.id ?? "0");
+
+  Future<int> deleteBook(String id) async {
+    var db = await database;
+    return await db.delete(tableBook, where: 'id = ?', whereArgs: [id]);
   }
 
   Future<List<Book>> deleteBooks() async {

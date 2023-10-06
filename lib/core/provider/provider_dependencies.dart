@@ -30,11 +30,14 @@ List<SingleChildWidget> _dependentProviders = <SingleChildWidget>[
       db: databaseHelper,
     ),
   ),
-  ProxyProvider<MasterApiService, BookRepository>(
-    update: (_, MasterApiService apiService, BookRepository? repository) =>
-        BookRepository(
-      apiService: apiService,
-    ),
+  ProxyProvider2<MasterApiService, DatabaseHelper, BookRepository>(
+    update: (
+      _,
+      MasterApiService apiService,
+      DatabaseHelper databaseHelper,
+      BookRepository? repository,
+    ) =>
+        BookRepository(apiService: apiService, dbService: databaseHelper),
   ),
 ];
 

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_escapes
+
 class BookData {
   BookData({
     this.status,
@@ -66,7 +68,8 @@ class Book {
 
   Map<String, Object> toMap(Book object) {
     final Map<String, Object> data = <String, Object>{};
-    data[BooksFields.id] = object.id ?? "";
+    data[BooksFields.id] =
+        object.id?.replaceAll(RegExp("[a-zA-Z:\s]"), "") ?? "";
     data[BooksFields.title] = object.title ?? "";
     data[BooksFields.authors] = object.authors ?? "";
     data[BooksFields.subtitle] = object.subtitle ?? "";

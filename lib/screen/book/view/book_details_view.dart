@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dbook/core/provider/book/book_detail_provider.dart';
+import 'package:dbook/core/provider/book/book_favourite_provider.dart';
 import 'package:dbook/core/repository/book_repository.dart';
 import 'package:dbook/core/viewobject/book.dart';
 import 'package:dbook/screen/common/app_bar_widget.dart';
@@ -18,6 +19,7 @@ class BookDetailsView extends StatefulWidget {
 
 class _BookDetailsViewState extends State<BookDetailsView> {
   late BookDetailProvider detailProvider;
+  late BookFavouriteProvider favouriteProvider;
   @override
   Widget build(BuildContext context) {
     final BookRepository repository = Provider.of<BookRepository>(context);
@@ -29,6 +31,12 @@ class _BookDetailsViewState extends State<BookDetailsView> {
               detailProvider = BookDetailProvider(repository: repository);
               detailProvider.loadData(widget.id);
               return detailProvider;
+            }),
+        ChangeNotifierProvider<BookFavouriteProvider>(
+            lazy: false,
+            create: (BuildContext context) {
+              favouriteProvider = BookFavouriteProvider(repository: repository);
+              return favouriteProvider;
             }),
       ],
       child: Scaffold(
@@ -102,21 +110,32 @@ class _BookDetailsViewState extends State<BookDetailsView> {
                                           color: MasterColors.black,
                                         ),
                                   )),
-                        InkWell(
-                            onTap: () async {},
-                            child: Container(
-                                margin: EdgeInsets.only(top: Dimesion.height10),
-                                child: book.isFavourite
-                                    ? Icon(
-                                        Icons.favorite,
-                                        color: Colors.white,
-                                        size: Dimesion.iconSize32,
-                                      )
-                                    : Icon(
-                                        Icons.favorite_outline,
-                                        color: MasterColors.red,
-                                        size: Dimesion.iconSize32,
-                                      )))
+                        Consumer<BookFavouriteProvider>(builder:
+                            (BuildContext context,
+                                BookFavouriteProvider favouriteProvider,
+                                Widget? child) {
+                          return InkWell(
+                              onTap: () async {
+                                setState(() {
+                                  book.isFavourite = !book.isFavourite;
+                                });
+                                await favouriteProvider.favBook(book: book);
+                              },
+                              child: Container(
+                                  margin:
+                                      EdgeInsets.only(top: Dimesion.height10),
+                                  child: book.isFavourite
+                                      ? Icon(
+                                          Icons.favorite,
+                                          color: MasterColors.red,
+                                          size: Dimesion.iconSize32,
+                                        )
+                                      : Icon(
+                                          Icons.favorite_outline,
+                                          color: MasterColors.red,
+                                          size: Dimesion.iconSize32,
+                                        )));
+                        })
                       ],
                     ),
                     SizedBox(
