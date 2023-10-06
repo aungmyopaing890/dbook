@@ -13,6 +13,7 @@ class BookFavouriteProvider extends ChangeNotifier {
   BookRepository? _repository;
   List<Book> dataList = [];
   bool isLoading = false;
+  bool isFav = false;
   Future<void> insertBook({
     required Book book,
   }) async {
@@ -27,7 +28,14 @@ class BookFavouriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getFavBooks() async {
+  Future<void> checkfavBook({
+    required String id,
+  }) async {
+    isFav = await _repository!.checkfavBook(id) ?? false;
+    notifyListeners();
+  }
+
+  Future<void> loadDataList() async {
     isLoading = true;
     dataList = await _repository!.loadFavBooks();
     isLoading = false;

@@ -77,6 +77,7 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
                           dataLength: pro.datalength,
                           dataList: pro.isLoading ? [] : pro.data.data,
                           hasData: pro.hasData,
+                          refresh: () {},
                           isLoading: pro.isLoading)
                       : Container(
                           margin: EdgeInsets.symmetric(

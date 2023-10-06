@@ -183,7 +183,7 @@ class DatabaseHelper {
     final db = await database;
     var itemMapList = await db.query(tableBook,
         where: '${BooksFields.isFavourite} = ?', whereArgs: [1]);
-    return List<Book>.from(itemMapList.map((x) => User().fromMap(x)));
+    return List<Book>.from(itemMapList.map((x) => Book().fromMap(x)));
   }
 
   Future<int> insertBook(Book book) async {
@@ -191,17 +191,37 @@ class DatabaseHelper {
     return await db.insert(tableBook, Book().toMap(book));
   }
 
+  Future<bool> checkfavBook(String id) async {
+    String newid = id.replaceAll(RegExp("[a-zA-Z:\s]"), "");
+    final db = await database;
+    var itemMapList = await db.query(tableBook,
+        columns: [BooksFields.id, BooksFields.isFavourite],
+        where: 'id = ?',
+        whereArgs: [newid]);
+    if (itemMapList.isEmpty) {
+      return false;
+    } else {
+      Book book =
+          List<Book>.from(itemMapList.map((x) => Book().fromMap(x))).first;
+      return book.isFavourite;
+    }
+  }
+
   Future<List<Book>> insertBookList(List<Book> books) async {
     books.map((e) async => await insertBook(e));
     return fetchBooks();
   }
 
-  Future<int> favBook(Book book) =>
-      book.isFavourite ? insertBook(book) : deleteBook(book.id ?? "0");
+  Future<int> favBook(Book book) async {
+    bool isfav = await checkfavBook(book.id ?? "0");
+    return isfav ? deleteBook(book.id ?? "0") : insertBook(book);
+  }
 
   Future<int> deleteBook(String id) async {
+    String newid = id.replaceAll(RegExp("[a-zA-Z:\s]"), "");
     var db = await database;
-    return await db.delete(tableBook, where: 'id = ?', whereArgs: [id]);
+    var d = await db.delete(tableBook, where: 'id = ?', whereArgs: [newid]);
+    return d;
   }
 
   Future<List<Book>> deleteBooks() async {

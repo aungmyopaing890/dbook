@@ -138,6 +138,19 @@ class _HomeViewState extends State<DashboardView>
               icon: SvgPicture.asset("assets/images/icons/home.svg"),
               label: 'Home',
             ),
+            const BottomNavigationBarItem(
+              // activeIcon: SvgPicture.asset(
+              //   "assets/images/icons/home.svg",
+              //   color: MasterColors.black,
+              // ),
+              // icon: SvgPicture.asset("assets/images/icons/home.svg"),
+              activeIcon: Icon(
+                Icons.favorite_border,
+                size: 24,
+              ),
+              icon: Icon(Icons.favorite_border),
+              label: 'Wishlist',
+            ),
             BottomNavigationBarItem(
               activeIcon: SvgPicture.asset(
                 "assets/images/icons/account.svg",
@@ -158,8 +171,11 @@ class _HomeViewState extends State<DashboardView>
       case MasterConst.REQUEST_CODE__HOME_FRAGMENT:
         index = 0;
         break;
-      case MasterConst.REQUEST_CODE__ACCOUNT_FRAGMENT:
+      case MasterConst.REQUEST_CODE__FAVOURITE_BOOK_FRAGMENT:
         index = 1;
+        break;
+      case MasterConst.REQUEST_CODE__ACCOUNT_FRAGMENT:
+        index = 2;
         break;
       default:
         index = MasterConst.REQUEST_CODE__HOME_FRAGMENT;
@@ -177,6 +193,10 @@ class _HomeViewState extends State<DashboardView>
         title = 'Home';
         break;
       case 1:
+        index = MasterConst.REQUEST_CODE__FAVOURITE_BOOK_FRAGMENT;
+        title = 'Wishlist';
+        break;
+      case 2:
         index = MasterConst.REQUEST_CODE__ACCOUNT_FRAGMENT;
         title = 'Profile';
         break;

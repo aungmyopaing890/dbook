@@ -1,3 +1,4 @@
+import 'package:dbook/screen/book/view/book_fav_view.dart';
 import 'package:flutter/material.dart';
 import '../../../../config/master_config.dart';
 import '../../../../core/constant/master_constants.dart';
@@ -42,6 +43,9 @@ class DashboardBodyWidgetState<T extends DashboardBodyWidget>
     return Builder(builder: (BuildContext context) {
       if (widget.currentIndex == MasterConst.REQUEST_CODE__ACCOUNT_FRAGMENT) {
         return const UserAccountScreen();
+      } else if (widget.currentIndex ==
+          MasterConst.REQUEST_CODE__FAVOURITE_BOOK_FRAGMENT) {
+        return const FavouriteBooksViewWidget();
       }
 
       return const HomeDashboardViewWidget();

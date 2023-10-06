@@ -18,7 +18,6 @@ class HomeDashboardViewWidget extends StatefulWidget {
 
 class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
   TextEditingController searchController = TextEditingController();
-  late BookProvider bookProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,8 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
         ChangeNotifierProvider<BookProvider>(
             lazy: false,
             create: (BuildContext context) {
-              bookProvider = BookProvider(repository: bannerRepository);
+              BookProvider bookProvider =
+                  BookProvider(repository: bannerRepository);
               bookProvider.loadDataList();
               return bookProvider;
             }),
@@ -39,56 +39,51 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
         backgroundColor: MasterColors.appBackgorundColor,
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimesion.width10),
-          child: RefreshIndicator(
-            onRefresh: () async {
-              bookProvider.loadDataList();
-            },
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: Dimesion.height20,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: Dimesion.height20,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Dimesion.height10),
+                  child: SearchHeaderWidget(
+                    searchController: searchController,
+                    hintText: 'Search Books ....',
+                    routeFunc: () {
+                      Navigator.pushNamed(
+                        context,
+                        RoutePaths.searchBook,
+                      );
+                    },
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: Dimesion.height10),
-                    child: SearchHeaderWidget(
-                      searchController: searchController,
-                      hintText: 'Search Books ....',
-                      routeFunc: () {
-                        Navigator.pushNamed(
-                          context,
-                          RoutePaths.searchBook,
-                        );
-                      },
-                    ),
+                ),
+                SizedBox(
+                  height: Dimesion.height20,
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.symmetric(vertical: Dimesion.height10),
+                  child: Text(
+                    "Recent Books",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: Dimesion.height20,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(vertical: Dimesion.height10),
-                    child: Text(
-                      "Recent Books",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Consumer<BookProvider>(builder:
-                      (BuildContext context, BookProvider pro, Widget? child) {
-                    return BookVerticalList(
-                        dataLength: pro.datalength,
-                        dataList: pro.isLoading ? [] : pro.data.data,
-                        hasData: pro.hasData,
-                        isLoading: pro.isLoading);
-                  })
-                ],
-              ),
+                ),
+                Consumer<BookProvider>(builder:
+                    (BuildContext context, BookProvider pro, Widget? child) {
+                  return BookVerticalList(
+                      dataLength: pro.datalength,
+                      dataList: pro.isLoading ? [] : pro.data.data,
+                      hasData: pro.hasData,
+                      refresh: () {},
+                      isLoading: pro.isLoading);
+                })
+              ],
             ),
           ),
         ),

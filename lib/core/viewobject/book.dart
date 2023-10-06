@@ -50,7 +50,7 @@ class Book {
   bool isFavourite;
   Book fromMap(dynamic dynamicData) {
     return Book(
-      id: dynamicData[BooksFields.id] ?? "",
+      id: dynamicData[BooksFields.id].toString(),
       title: dynamicData[BooksFields.title] ?? "",
       authors: dynamicData[BooksFields.authors] ?? "",
       subtitle: dynamicData[BooksFields.subtitle] ?? "",
@@ -62,7 +62,7 @@ class Book {
       year: dynamicData[BooksFields.year] ?? "",
       download: dynamicData[BooksFields.download] ?? "",
       status: dynamicData[BooksFields.status] ?? "",
-      isFavourite: dynamicData[BooksFields.isFavourite] ?? false,
+      isFavourite: dynamicData[BooksFields.isFavourite] == 1 ? true : false,
     );
   }
 

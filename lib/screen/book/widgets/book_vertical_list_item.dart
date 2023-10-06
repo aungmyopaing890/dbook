@@ -8,18 +8,20 @@ import '../../../config/master_colors.dart';
 import '../../../core/constant/dimesions.dart';
 
 class BookVarticalListItem extends StatelessWidget {
-  const BookVarticalListItem({
-    Key? key,
-    required this.book,
-  }) : super(key: key);
+  const BookVarticalListItem(
+      {Key? key, required this.book, required this.refresh})
+      : super(key: key);
   final Book book;
+  final Function refresh;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         final BookDetailsIntentHolder holder =
             BookDetailsIntentHolder(id: book.id ?? "");
-        Navigator.pushNamed(context, RoutePaths.bookDetails, arguments: holder);
+        await Navigator.pushNamed(context, RoutePaths.bookDetails,
+            arguments: holder);
+        refresh();
       },
       child: Container(
         decoration: BoxDecoration(

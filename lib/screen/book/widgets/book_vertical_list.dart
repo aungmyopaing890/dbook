@@ -9,6 +9,7 @@ class BookVerticalList extends StatelessWidget {
       {Key? key,
       required this.isLoading,
       required this.dataLength,
+      required this.refresh,
       this.dataList,
       required this.hasData})
       : super(key: key);
@@ -16,6 +17,7 @@ class BookVerticalList extends StatelessWidget {
   final bool hasData;
   final int dataLength;
   final List<Book>? dataList;
+  final Function refresh;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,8 +41,7 @@ class BookVerticalList extends StatelessWidget {
                   return isLoading
                       ? const CustomShimmer()
                       : BookVarticalListItem(
-                          book: dataList![index],
-                        );
+                          book: dataList![index], refresh: refresh);
                 })),
         SizedBox(
           height: Dimesion.height10,

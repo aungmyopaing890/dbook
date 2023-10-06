@@ -34,6 +34,10 @@ class BookRepository {
     return await _dbService!.favBook(book);
   }
 
+  Future<bool?> checkfavBook(String id) async {
+    return await _dbService!.checkfavBook(id);
+  }
+
   Future<List<Book>> loadFavBooks() async {
     return await _dbService!.getFavBooks();
   }

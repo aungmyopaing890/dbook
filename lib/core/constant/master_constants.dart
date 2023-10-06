@@ -4,7 +4,8 @@ class MasterConst {
   MasterConst._();
 
   static const int REQUEST_CODE__HOME_FRAGMENT = 1001;
-  static const int REQUEST_CODE__ACCOUNT_FRAGMENT = 1002;
+  static const int REQUEST_CODE__FAVOURITE_BOOK_FRAGMENT = 1002;
+  static const int REQUEST_CODE__ACCOUNT_FRAGMENT = 1003;
 
   /// USER
   static const String VALUE_HOLDER__USER_ID = 'USERID';

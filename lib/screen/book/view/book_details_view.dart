@@ -36,6 +36,7 @@ class _BookDetailsViewState extends State<BookDetailsView> {
             lazy: false,
             create: (BuildContext context) {
               favouriteProvider = BookFavouriteProvider(repository: repository);
+              favouriteProvider.checkfavBook(id: widget.id);
               return favouriteProvider;
             }),
       ],
@@ -117,6 +118,8 @@ class _BookDetailsViewState extends State<BookDetailsView> {
                           return InkWell(
                               onTap: () async {
                                 setState(() {
+                                  favouriteProvider.isFav =
+                                      !favouriteProvider.isFav;
                                   book.isFavourite = !book.isFavourite;
                                 });
                                 await favouriteProvider.favBook(book: book);
@@ -124,7 +127,7 @@ class _BookDetailsViewState extends State<BookDetailsView> {
                               child: Container(
                                   margin:
                                       EdgeInsets.only(top: Dimesion.height10),
-                                  child: book.isFavourite
+                                  child: favouriteProvider.isFav
                                       ? Icon(
                                           Icons.favorite,
                                           color: MasterColors.red,
