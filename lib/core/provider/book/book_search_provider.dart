@@ -12,11 +12,36 @@ class BookSearchProvider extends ChangeNotifier {
 
   BookRepository? _repository;
   BookData data = BookData();
+  BookData totalData = BookData();
   bool isLoading = false;
   Future<void> loadDataList(String keyword) async {
     isLoading = true;
     BookData datalist = await _repository!.searchDataList(keyword);
-    data = datalist;
+    totalData = datalist;
+    data.status = datalist.status;
+    data.data = [
+      datalist.data?[0] ?? Book(),
+      datalist.data?[1] ?? Book(),
+      datalist.data?[2] ?? Book(),
+    ];
+    isLoading = false;
+    notifyListeners();
+  }
+
+  int count = 0;
+  int index = 0;
+  Future<void> loadNextDataList() async {
+    isLoading = true;
+    count = count + 1;
+    index = index + 3;
+    int interval = (datalength / 3).ceil();
+    if (count < interval) {
+      data.data!.addAll([
+        totalData.data?[index] ?? Book(),
+        totalData.data?[index + 1] ?? Book(),
+        totalData.data?[index + 2] ?? Book()
+      ]);
+    }
     isLoading = false;
     notifyListeners();
   }

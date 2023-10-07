@@ -21,6 +21,20 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
   TextEditingController searchController = TextEditingController();
   late BookSearchProvider searchProvider;
 
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        searchProvider.loadNextDataList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final BookRepository repository = Provider.of<BookRepository>(context);
@@ -49,6 +63,7 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimesion.width10),
           child: SingleChildScrollView(
+            controller: scrollController,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
