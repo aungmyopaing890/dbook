@@ -27,14 +27,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confrimPasswordController = TextEditingController();
   late AuthProvider authProvider;
-  @override
-  void initState() {
-    super.initState();
-    nameController.text = "aung11";
-    emailController.text = "aua1111@gmail.com";
-    passwordController.text = "password1";
-    confrimPasswordController.text = "password1";
-  }
 
   @override
   Widget build(BuildContext context) {

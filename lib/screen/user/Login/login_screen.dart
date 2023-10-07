@@ -21,13 +21,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool isChecked = false;
 
-  @override
-  void initState() {
-    super.initState();
-    usernameController.text = "aung11";
-    passwordController.text = "password1";
-  }
-
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late AuthProvider authProvider;
