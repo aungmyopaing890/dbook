@@ -32,7 +32,7 @@ class BookVerticalList extends StatelessWidget {
                     childAspectRatio: 0.9,
                     crossAxisSpacing: Dimesion.height20,
                     mainAxisSpacing: Dimesion.height10,
-                    mainAxisExtent: Dimesion.height40 * 6),
+                    mainAxisExtent: Dimesion.height40 * 5.5),
                 scrollDirection: Axis.vertical,
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,

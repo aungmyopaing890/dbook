@@ -13,10 +13,12 @@ class BookSearchProvider extends ChangeNotifier {
   BookRepository? _repository;
   BookData data = BookData();
   BookData totalData = BookData();
+  int totalDatalLength = 0;
   bool isLoading = false;
   Future<void> loadDataList(String keyword) async {
     isLoading = true;
     BookData datalist = await _repository!.searchDataList(keyword);
+    totalDatalLength = datalist.data?.length ?? 0;
     totalData = datalist;
     data.status = datalist.status;
     data.data = [
@@ -34,7 +36,6 @@ class BookSearchProvider extends ChangeNotifier {
     isLoading = true;
     count = count + 1;
     index = index + 3;
-    int interval = (datalength / 3).ceil();
     if (count < interval) {
       data.data!.addAll([
         totalData.data?[index] ?? Book(),
@@ -48,6 +49,10 @@ class BookSearchProvider extends ChangeNotifier {
 
   bool get hasData {
     return datalength > 0;
+  }
+
+  int get interval {
+    return (totalDatalLength / 3).ceil();
   }
 
   int get datalength {

@@ -87,19 +87,39 @@ class _BookSearchScreenState extends State<BookSearchScreen> {
                 ),
                 Consumer<BookSearchProvider>(builder: (BuildContext context,
                     BookSearchProvider pro, Widget? child) {
-                  return (pro.hasData || pro.isLoading)
-                      ? BookVerticalList(
-                          dataLength: pro.datalength,
-                          dataList: pro.isLoading ? [] : pro.data.data,
-                          hasData: pro.hasData,
-                          refresh: () {},
-                          isLoading: pro.isLoading)
-                      : Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: Dimesion.height10),
-                          child: const EmptyBoxWidget(
-                              message: "There is no books"));
-                })
+                  return Column(
+                    children: [
+                      (pro.hasData || pro.isLoading)
+                          ? BookVerticalList(
+                              dataLength: pro.datalength,
+                              dataList: pro.isLoading ? [] : pro.data.data,
+                              hasData: pro.hasData,
+                              refresh: () {},
+                              isLoading: pro.isLoading)
+                          : Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: Dimesion.height10),
+                              child: const EmptyBoxWidget(
+                                  message: "There is no books")),
+                      (pro.count < pro.interval)
+                          ? InkWell(
+                              onTap: () => pro.loadNextDataList(),
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: MasterColors.grey,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(12))),
+                                width: Dimesion.screenWidth * 0.3,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: Dimesion.height5),
+                                child: const Text("Load More.."),
+                              ),
+                            )
+                          : Container()
+                    ],
+                  );
+                }),
               ],
             ),
           ),
