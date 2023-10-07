@@ -1,4 +1,6 @@
 # dbook
+Flutter SDK : 3.10.6
+Database    : SQFilte
 
 API :  Dbooks<br>
 1.Home Screen<br>
