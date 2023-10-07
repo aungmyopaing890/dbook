@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import '../../screen/app_loading/view/app_loading_screen.dart';
 import '../../screen/dashboard/view/dashboard_view.dart';
 import '../../screen/user/change_passowrd/change_password_screen.dart';
-import '../../screen/user/loginorsignup/login_or_signup_view.dart';
 import 'route_paths.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -39,12 +38,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             return const SignUpScreen();
           });
 
-    case RoutePaths.loginOrSignup:
-      return MaterialPageRoute<dynamic>(
-          settings: const RouteSettings(name: RoutePaths.loginOrSignup),
-          builder: (BuildContext context) {
-            return const LoginOrSignUpView();
-          });
     case RoutePaths.searchBook:
       return MaterialPageRoute<dynamic>(
           settings: const RouteSettings(name: RoutePaths.searchBook),
