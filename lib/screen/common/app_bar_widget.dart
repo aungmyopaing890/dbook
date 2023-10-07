@@ -66,7 +66,7 @@ class _AppbarWidget extends StatelessWidget {
         ),
         centerTitle: false,
         iconTheme:
-            Theme.of(context).iconTheme.copyWith(color: MasterColors.mainColor),
+            Theme.of(context).iconTheme.copyWith(color: MasterColors.black),
         title: Text(appBarTitle ?? '',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -80,7 +80,8 @@ class _AppbarWidget extends StatelessWidget {
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Utils.getBrightnessForAppBar(context),
         ),
-        iconTheme: Theme.of(context).iconTheme,
+        iconTheme:
+            Theme.of(context).iconTheme.copyWith(color: MasterColors.black),
         automaticallyImplyLeading: autoLeading,
         backgroundColor: MasterColors.appBarBackgorundColor,
         centerTitle: false,

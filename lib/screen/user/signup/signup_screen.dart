@@ -43,15 +43,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ],
       child: Scaffold(
         backgroundColor: MasterColors.appBackgorundColor,
-        appBar: AppbarWidget(
-          leading: InkWell(
-            onTap: () => Navigator.pop(context),
-            child: Icon(
-              Icons.arrow_back,
-              color: MasterColors.black,
-              size: Dimesion.height24,
-            ),
-          ),
+        appBar: const AppbarWidget(
+          autoLeading: true,
           appBarTitle: "Sign up",
         ),
         body: SingleChildScrollView(

@@ -38,15 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
       child: Scaffold(
         backgroundColor: MasterColors.appBackgorundColor,
-        appBar: AppbarWidget(
-          leading: InkWell(
-            onTap: () => Navigator.pop(context),
-            child: Icon(
-              Icons.arrow_back,
-              color: MasterColors.black,
-              size: Dimesion.height24,
-            ),
-          ),
+        appBar: const AppbarWidget(
+          autoLeading: true,
           appBarTitle: "Login",
         ),
         body: SingleChildScrollView(
